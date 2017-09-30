@@ -1,0 +1,8 @@
+E:\projects\VS\2DAminationDemo\2DAminationEditor\bin\Debug\2DAminationEditor.exe
+E:\projects\VS\2DAminationDemo\2DAminationEditor\bin\Debug\2DAminationEditor.pdb
+E:\projects\VS\2DAminationDemo\2DAminationEditor\obj\Debug\2DAminationEditor.csprojResolveAssemblyReference.cache
+E:\projects\VS\2DAminationDemo\2DAminationEditor\obj\Debug\_2DAminationEditor.Properties.Resources.resources
+E:\projects\VS\2DAminationDemo\2DAminationEditor\obj\Debug\2DAminationEditor.csproj.GenerateResource.Cache
+E:\projects\VS\2DAminationDemo\2DAminationEditor\obj\Debug\2DAminationEditor.exe
+E:\projects\VS\2DAminationDemo\2DAminationEditor\obj\Debug\2DAminationEditor.pdb
+E:\projects\VS\2DAminationDemo\2DAminationEditor\obj\Debug\_2DAminationEditor.FormMain.resources

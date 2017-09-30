@@ -1,6 +1,6 @@
 ﻿namespace _2DAminationDemo
 {
-    partial class Form1
+    partial class FormMain
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -30,12 +30,12 @@
         {
             this.SuspendLayout();
             // 
-            // Form1
+            // FormMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
-            this.Name = "Form1";
+            this.Name = "FormMain";
             this.Text = "2D Amination Demo";
             this.ResumeLayout(false);
 
