@@ -16,7 +16,7 @@ namespace _2DAminationDemo.GameObject
         /// <summary>
         /// 角色移动方向
         /// </summary>
-        public static enum MoveDirection
+        public enum MoveDirection
         {
             IDLE = 0,
             LEFT = 1,
@@ -51,37 +51,45 @@ namespace _2DAminationDemo.GameObject
         /// </summary>
         Thread thread_move;
         /// <summary>
+        /// 帧数量
+        /// </summary>
+        int FrameLength;
+        /// <summary>
+        /// 帧间隔
+        /// </summary>
+        int FrameInterval;
+        /// <summary>
         /// 运行移动线程
         /// </summary>
         void playMoveThread()
         {
-            this.Invoke(new MethodInvoker(
-                delegate
+            
+            for (int i = 0; i < FrameLength; i++)
+            {
+                _AminationPlaying.Invoke(new MethodInvoker(delegate
                 {
-                    for (int i = 0; i < _AminationPlaying.ImageArray.Length; i++)
+                    switch (NowDirection)
                     {
-                        switch (NowDirection)
-                        {
-                            case MoveDirection.IDLE:
-                                break;
-                            case MoveDirection.LEFT:
-                                this.SetBounds(this.Location.X - MoveSpeed, this.Location.Y, this.Width, this.Height);
-                                break;
-                            case MoveDirection.UP:
-                                this.SetBounds(this.Location.X, this.Location.Y - MoveSpeed, this.Width, this.Height);
-                                break;
-                            case MoveDirection.RIGHT:
-                                this.SetBounds(this.Location.X + MoveSpeed, this.Location.Y, this.Width, this.Height);
-                                break;
-                            case MoveDirection.DOWN:
-                                this.SetBounds(this.Location.X, this.Location.Y + MoveSpeed, this.Width, this.Height);
-                                break;
-                            default:
-                                break;
-                        }
-                        Thread.Sleep(_AminationPlaying.FrameInterval);
+                        case MoveDirection.IDLE:
+                            break;
+                        case MoveDirection.LEFT:
+                            this.SetBounds(this.Location.X - MoveSpeed, this.Location.Y, this.Width, this.Height);
+                            break;
+                        case MoveDirection.UP:
+                            this.SetBounds(this.Location.X, this.Location.Y - MoveSpeed, this.Width, this.Height);
+                            break;
+                        case MoveDirection.RIGHT:
+                            this.SetBounds(this.Location.X + MoveSpeed, this.Location.Y, this.Width, this.Height);
+                            break;
+                        case MoveDirection.DOWN:
+                            this.SetBounds(this.Location.X, this.Location.Y + MoveSpeed, this.Width, this.Height);
+                            break;
+                        default:
+                            break;
                     }
                 }));
+                Thread.Sleep(FrameInterval);
+            }
         }
         /// <summary>
         /// 移动
@@ -113,6 +121,9 @@ namespace _2DAminationDemo.GameObject
             }
             this.Controls.Clear();
             this.Controls.Add(_AminationPlaying);
+            _AminationPlaying.Visible = true;
+            FrameLength = _AminationPlaying.ImageArray.Length;
+            FrameInterval = _AminationPlaying.FrameInterval;
             _AminationPlaying.Play();
             thread_move = new Thread(playMoveThread);
             thread_move.Start();

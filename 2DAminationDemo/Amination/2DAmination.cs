@@ -52,15 +52,14 @@ namespace _2DAminationDemo.Amination
         /// </summary>
         void playAminationThread()
         {
-            this.Invoke(new MethodInvoker(delegate
+            for (int i = 0; i < _ImageArray.Length; i++)
             {
-                for (int i = 0; i < _ImageArray.Length; i++)
-                {
-                    this.Image = _ImageArray[i];
-                    Thread.Sleep(_FrameInterval);
-                }
-            }));
+                this.Image = _ImageArray[i];
+                //Application.DoEvents();
+                Thread.Sleep(_FrameInterval);
+            }
         }
+        
         /// <summary>
         /// 播放动画
         /// </summary>
@@ -69,6 +68,7 @@ namespace _2DAminationDemo.Amination
             thread_play = new Thread(playAminationThread);
             thread_play.Start();
         }
+         
         /// <summary>
         /// 组成动画的图片组
         /// </summary>

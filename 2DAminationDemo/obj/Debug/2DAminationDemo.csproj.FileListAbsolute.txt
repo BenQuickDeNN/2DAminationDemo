@@ -1,0 +1,7 @@
+E:\projects\VS\2DAminationDemo\2DAminationDemo\obj\Debug\_2DAminationDemo.FormMain.resources
+E:\projects\VS\2DAminationDemo\2DAminationDemo\obj\Debug\_2DAminationDemo.Properties.Resources.resources
+E:\projects\VS\2DAminationDemo\2DAminationDemo\obj\Debug\2DAminationDemo.csproj.GenerateResource.Cache
+E:\projects\VS\2DAminationDemo\2DAminationDemo\bin\Debug\2DAminationDemo.exe
+E:\projects\VS\2DAminationDemo\2DAminationDemo\bin\Debug\2DAminationDemo.pdb
+E:\projects\VS\2DAminationDemo\2DAminationDemo\obj\Debug\2DAminationDemo.exe
+E:\projects\VS\2DAminationDemo\2DAminationDemo\obj\Debug\2DAminationDemo.pdb
