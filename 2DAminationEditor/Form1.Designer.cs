@@ -38,10 +38,10 @@
             this.button_NextFrame = new System.Windows.Forms.Button();
             this.label_FramePage = new System.Windows.Forms.Label();
             this.button_CreateNewFrame = new System.Windows.Forms.Button();
-            this.button_ImportImage = new System.Windows.Forms.Button();
             this.button_ExportAmination = new System.Windows.Forms.Button();
             this.button_DeleteFrame = new System.Windows.Forms.Button();
             this.openFileDialog_Image = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog_Amination = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Width)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_Height)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_Main)).BeginInit();
@@ -136,7 +136,7 @@
             this.label_FramePage.Name = "label_FramePage";
             this.label_FramePage.Size = new System.Drawing.Size(23, 12);
             this.label_FramePage.TabIndex = 9;
-            this.label_FramePage.Text = "1/1";
+            this.label_FramePage.Text = "0/0";
             // 
             // button_CreateNewFrame
             // 
@@ -147,16 +147,6 @@
             this.button_CreateNewFrame.Text = "新建帧";
             this.button_CreateNewFrame.UseVisualStyleBackColor = true;
             this.button_CreateNewFrame.Click += new System.EventHandler(this.ToolBoxClickEventHandler);
-            // 
-            // button_ImportImage
-            // 
-            this.button_ImportImage.Location = new System.Drawing.Point(396, 526);
-            this.button_ImportImage.Name = "button_ImportImage";
-            this.button_ImportImage.Size = new System.Drawing.Size(75, 23);
-            this.button_ImportImage.TabIndex = 11;
-            this.button_ImportImage.Text = "导入图片";
-            this.button_ImportImage.UseVisualStyleBackColor = true;
-            this.button_ImportImage.Click += new System.EventHandler(this.ToolBoxClickEventHandler);
             // 
             // button_ExportAmination
             // 
@@ -170,7 +160,7 @@
             // 
             // button_DeleteFrame
             // 
-            this.button_DeleteFrame.Location = new System.Drawing.Point(599, 526);
+            this.button_DeleteFrame.Location = new System.Drawing.Point(400, 526);
             this.button_DeleteFrame.Name = "button_DeleteFrame";
             this.button_DeleteFrame.Size = new System.Drawing.Size(75, 23);
             this.button_DeleteFrame.TabIndex = 13;
@@ -180,7 +170,13 @@
             // 
             // openFileDialog_Image
             // 
+            this.openFileDialog_Image.Filter = "(*.jpg)|*.jpg|(*.jpeg)|*.jpeg|(*.png)|*.png|(*.bmp)|*.bmp";
             this.openFileDialog_Image.Title = "选择图片";
+            // 
+            // saveFileDialog_Amination
+            // 
+            this.saveFileDialog_Amination.Filter = "(*.amin2d)|*.amin2d";
+            this.saveFileDialog_Amination.Title = "导出动画";
             // 
             // FormMain
             // 
@@ -189,7 +185,6 @@
             this.ClientSize = new System.Drawing.Size(784, 561);
             this.Controls.Add(this.button_DeleteFrame);
             this.Controls.Add(this.button_ExportAmination);
-            this.Controls.Add(this.button_ImportImage);
             this.Controls.Add(this.button_CreateNewFrame);
             this.Controls.Add(this.label_FramePage);
             this.Controls.Add(this.button_NextFrame);
@@ -223,10 +218,10 @@
         private System.Windows.Forms.Button button_NextFrame;
         private System.Windows.Forms.Label label_FramePage;
         private System.Windows.Forms.Button button_CreateNewFrame;
-        private System.Windows.Forms.Button button_ImportImage;
         private System.Windows.Forms.Button button_ExportAmination;
         private System.Windows.Forms.Button button_DeleteFrame;
         private System.Windows.Forms.OpenFileDialog openFileDialog_Image;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog_Amination;
 
     }
 }

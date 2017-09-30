@@ -18,7 +18,7 @@ namespace _2DAminationEditor
         /// <summary>
         /// 当前帧索引
         /// </summary>
-        int CurrentFrameIndex = 1;
+        int CurrentFrameIndex = 0;
         public FormMain()
         {
             InitializeComponent();
@@ -35,6 +35,8 @@ namespace _2DAminationEditor
             else if (toolBox.Equals(button_PreFrame)) btn_PreFrame_Click();
             else if (toolBox.Equals(button_NextFrame)) btn_NextFrame_Click();
             else if (toolBox.Equals(button_CreateNewFrame)) btn_CreateNewFrame_Click();
+            else if (toolBox.Equals(button_DeleteFrame)) btn_DeleteFrame_Click();
+            else if (toolBox.Equals(button_ExportAmination)) btn_ExportAmination_Click();
         }
         /// <summary>
         /// 创建新动画
@@ -43,9 +45,8 @@ namespace _2DAminationEditor
         {
             pictureBox_Main.Image = null;
             FramesList = new LinkedList<Image>();
-            FramesList.AddLast(pictureBox_Main.Image);
-            CurrentFrameIndex = 1;
-            label_FramePage.Text = "1/1";
+            CurrentFrameIndex = 0;
+            label_FramePage.Text = "0/0";
             int width = int.Parse(numericUpDown_Width.Value.ToString());
             int height = int.Parse(numericUpDown_Height.Value.ToString());
             pictureBox_Main.SetBounds(pictureBox_Main.Location.X, pictureBox_Main.Location.Y, width, height);
@@ -79,19 +80,58 @@ namespace _2DAminationEditor
         /// </summary>
         void btn_CreateNewFrame_Click()
         {
-            pictureBox_Main.Image = null;
-            FramesList.AddLast(pictureBox_Main.Image);
-            ++CurrentFrameIndex;
-            label_FramePage.Text = CurrentFrameIndex + "/" + FramesList.Count;
-            if (CurrentFrameIndex > 1) button_PreFrame.Enabled = true;
-            if (CurrentFrameIndex >= FramesList.Count) button_NextFrame.Enabled = false;
-            if (FramesList.Count > 1) button_DeleteFrame.Enabled = true;
+            if (openFileDialog_Image.ShowDialog() == DialogResult.OK)
+            {
+                pictureBox_Main.Image = new Bitmap(pictureBox_Main.Width, pictureBox_Main.Height);
+                Graphics snap = Graphics.FromImage(pictureBox_Main.Image);
+                Image tempImage = Image.FromFile(openFileDialog_Image.FileName);
+                snap.DrawImage(tempImage, new Rectangle(0, 0, pictureBox_Main.Width, pictureBox_Main.Height), 
+                    new Rectangle(0, 0, tempImage.Width, tempImage.Height), GraphicsUnit.Pixel);
+                FramesList.AddLast(pictureBox_Main.Image);
+                ++CurrentFrameIndex;
+                label_FramePage.Text = CurrentFrameIndex + "/" + FramesList.Count;
+                if (CurrentFrameIndex > 1) button_PreFrame.Enabled = true;
+                if (CurrentFrameIndex >= FramesList.Count) button_NextFrame.Enabled = false;
+                if (FramesList.Count > 0) button_DeleteFrame.Enabled = true;
+            }
         }
         /// <summary>
-        /// 导入图片
+        /// 删除当前帧
         /// </summary>
-        void btn_ImportImage_Click()
+        void btn_DeleteFrame_Click()
         {
+            if (FramesList.Count <= 0) return;
+            FramesList.Remove(FramesList.ElementAt(CurrentFrameIndex - 1));
+            if(CurrentFrameIndex > FramesList.Count)--CurrentFrameIndex;
+            if (FramesList.Count <= 0)
+            {
+                button_DeleteFrame.Enabled = false;
+                pictureBox_Main.Image = null;
+            }
+            else
+            {
+                pictureBox_Main.Image = FramesList.ElementAt(CurrentFrameIndex - 1);
+            }
+            label_FramePage.Text = CurrentFrameIndex + "/" + FramesList.Count;
+            if (CurrentFrameIndex < 2) button_PreFrame.Enabled = false;
+            if (CurrentFrameIndex >= FramesList.Count) button_NextFrame.Enabled = false;
+        }
+        /// <summary>
+        /// 导出动画
+        /// </summary>
+        void btn_ExportAmination_Click()
+        {
+            if (saveFileDialog_Amination.ShowDialog() == DialogResult.OK)
+            {
+                Bitmap AminationExported = new Bitmap(pictureBox_Main.Width, pictureBox_Main.Height * FramesList.Count);
+                Graphics snap = Graphics.FromImage(AminationExported);
+                for (int i = 0; i < FramesList.Count; i++)
+                {
+                    snap.DrawImage(FramesList.ElementAt(i), new Rectangle(0, i * pictureBox_Main.Height, pictureBox_Main.Width, pictureBox_Main.Height),
+                        new Rectangle(0, 0, FramesList.ElementAt(i).Width, FramesList.ElementAt(i).Height), GraphicsUnit.Pixel);
+                }
+                AminationExported.Save(saveFileDialog_Amination.FileName);
+            }
         }
         /// <summary>
         /// 设置组件可用性
