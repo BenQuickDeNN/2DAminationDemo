@@ -1,4 +1,5 @@
 ﻿using _2DAminationDemo.Amination;
+using _2DAminationDemo.GameController;
 using _2DAminationDemo.GameObject;
 using System;
 using System.Collections.Generic;
@@ -17,8 +18,12 @@ namespace _2DAminationDemo
         public FormMain()
         {
             InitializeComponent();
-            test2DAmination();
-            testGameRole();
+            this.KeyPreview = true;
+            //test2DAmination();
+            //testGameRole();
+            
+            testController1();
+            //testController2();
         }
         /// <summary>
         /// 测试动画
@@ -41,14 +46,81 @@ namespace _2DAminationDemo
         void testGameRole()
         {
             GameRole testObject = GameObjectFactory.CreateGameRole();
-            testObject.SetBounds(200, 200, 50, 50);
+            testObject.SetBounds(200, 150, 100, 200);
             this.Controls.Add(testObject);
-            testObject.MoveSpeed = 20;
-            testObject.AminationIdle = AminationFactory.Create2DAmination(Image.FromFile(@"E:\图片\amin2d1.amin2d"), new Size(50, 50));
-            testObject.AminationIdle.FrameInterval = 1000;
-            testObject.AminationMoveRight = AminationFactory.Create2DAmination(Image.FromFile(@"E:\图片\amin2d2.amin2d"), new Size(50, 50));
-            testObject.AminationMoveRight.FrameInterval = 1000;
+            testObject.MoveSpeed = 5;
+           
+            testObject.AminationMoveRight = AminationFactory.Create2DAmination(Image.FromFile(@"E:\图片\walk_sekelon.amin2d"), new Size(100, 200));
+            testObject.AminationMoveRight.FrameInterval = 60;
+            testObject.AminationMoveLeft = AminationFactory.Create2DAmination(Image.FromFile(@"E:\图片\walk_sekelon_l.amin2d"), new Size(100, 200));
+            testObject.AminationMoveLeft.FrameInterval = 60;
+            testObject.AminationIdle = AminationFactory.Create2DAmination(Image.FromFile(@"E:\图片\walk_sekelon_idle.amin2d"), new Size(100, 200));
+            testObject.AminationIdle.FrameInterval = 60;
             testObject.Move(GameRole.MoveDirection.RIGHT);
+        }
+        /// <summary>
+        /// 测试控制器1
+        /// </summary>
+        void testController1()
+        {
+            GameRole testObject = GameObjectFactory.CreateGameRole();
+            testObject.SetBounds(200, 300, 100, 200);
+            this.Controls.Add(testObject);
+            testObject.MoveSpeed = 10;
+
+            testObject.AminationMoveUp = AminationFactory.Create2DAmination(Image.FromFile(@"E:\图片\walk_sekelon.amin2d"), new Size(100, 200));
+            testObject.AminationMoveUp.FrameInterval = 80;
+            testObject.AminationMoveRight = AminationFactory.Create2DAmination(Image.FromFile(@"E:\图片\walk_sekelon.amin2d"), new Size(100, 200));
+            testObject.AminationMoveRight.FrameInterval = 80;
+            testObject.AminationMoveDown = AminationFactory.Create2DAmination(Image.FromFile(@"E:\图片\walk_sekelon_l.amin2d"), new Size(100, 200));
+            testObject.AminationMoveDown.FrameInterval = 80;
+            testObject.AminationMoveLeft = AminationFactory.Create2DAmination(Image.FromFile(@"E:\图片\walk_sekelon_l.amin2d"), new Size(100, 200));
+            testObject.AminationMoveLeft.FrameInterval = 80;
+            testObject.AminationIdle = AminationFactory.Create2DAmination(Image.FromFile(@"E:\图片\walk_sekelon_idle.amin2d"), new Size(100, 200));
+            testObject.AminationIdle.FrameInterval = 80;
+
+            RoleController testController = new RoleController();
+            testController.Role = testObject;
+            testController.SetDefaultAction(testController.Role.BeIdle);
+            testController.SetKeyPressAction(Keys.A, testController.Role.MoveLeft);
+            testController.SetKeyPressAction(Keys.D, testController.Role.MoveRight);
+            testController.SetKeyPressAction(Keys.W, testController.Role.MoveUp);
+            testController.SetKeyPressAction(Keys.S, testController.Role.MoveDown);
+            this.KeyDown += testController.KeyDownEventHandler;
+        }
+        /// <summary>
+        /// 测试控制器2
+        /// </summary>
+        void testController2()
+        {
+            GameRole testObject = GameObjectFactory.CreateGameRole();
+            testObject.SetBounds(200, 160, 100, 200);
+            this.Controls.Add(testObject);
+            testObject.MoveSpeed = 10;
+
+            testObject.AminationMoveRight = AminationFactory.Create2DAmination(Image.FromFile(@"E:\图片\walk_sekelon.amin2d"), new Size(100, 200));
+            testObject.AminationMoveRight.FrameInterval = 80;
+            testObject.AminationMoveLeft = AminationFactory.Create2DAmination(Image.FromFile(@"E:\图片\walk_sekelon_l.amin2d"), new Size(100, 200));
+            testObject.AminationMoveLeft.FrameInterval = 80;
+            testObject.AminationIdle = AminationFactory.Create2DAmination(Image.FromFile(@"E:\图片\walk_sekelon_idle.amin2d"), new Size(100, 200));
+            testObject.AminationIdle.FrameInterval = 80;
+
+            RoleController testController = new RoleController();
+            testController.Role = testObject;
+            testController.SetDefaultAction(testController.Role.BeIdle);
+            testController.SetKeyPressAction(Keys.Left, testController.Role.MoveLeft);
+            testController.SetKeyPressAction(Keys.Right, testController.Role.MoveRight);
+            this.KeyDown += testController.KeyDownEventHandler;
+
+        }
+        /// <summary>
+        /// 窗体关闭事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Environment.Exit(0);
         }
     }
 }

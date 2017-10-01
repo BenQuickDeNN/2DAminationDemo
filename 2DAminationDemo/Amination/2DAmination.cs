@@ -46,7 +46,7 @@ namespace _2DAminationDemo.Amination
         /// <summary>
         /// 播放动画线程
         /// </summary>
-        Thread thread_play;
+        public Thread thread_play;
         /// <summary>
         /// 执行播放
         /// </summary>

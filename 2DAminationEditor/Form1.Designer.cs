@@ -59,6 +59,11 @@
             // numericUpDown_Width
             // 
             this.numericUpDown_Width.Location = new System.Drawing.Point(53, 12);
+            this.numericUpDown_Width.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.numericUpDown_Width.Name = "numericUpDown_Width";
             this.numericUpDown_Width.Size = new System.Drawing.Size(50, 21);
             this.numericUpDown_Width.TabIndex = 2;
@@ -71,6 +76,11 @@
             // numericUpDown_Height
             // 
             this.numericUpDown_Height.Location = new System.Drawing.Point(200, 12);
+            this.numericUpDown_Height.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.numericUpDown_Height.Name = "numericUpDown_Height";
             this.numericUpDown_Height.Size = new System.Drawing.Size(50, 21);
             this.numericUpDown_Height.TabIndex = 3;

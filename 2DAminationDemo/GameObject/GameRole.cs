@@ -25,6 +25,10 @@ namespace _2DAminationDemo.GameObject
             DOWN = 4
         }
         /// <summary>
+        /// 移动次数
+        /// </summary>
+        public int MoveLength = 3;
+        /// <summary>
         /// 移动速度(px / frame)
         /// </summary>
         int _MoveSpeed = 5;
@@ -63,11 +67,21 @@ namespace _2DAminationDemo.GameObject
         /// </summary>
         void playMoveThread()
         {
-            
-            for (int i = 0; i < FrameLength; i++)
+            Thread.Sleep(40);
+            for (int i = 0; i < MoveLength;i++ )
             {
                 _AminationPlaying.Invoke(new MethodInvoker(delegate
                 {
+                    if (_AminationPlaying != null)
+                    {
+                        if (_AminationPlaying.thread_play != null)
+                        {
+                            if (!_AminationPlaying.thread_play.IsAlive)
+                            {
+                                _AminationPlaying.Play();
+                            }
+                        }
+                    }
                     switch (NowDirection)
                     {
                         case MoveDirection.IDLE:
@@ -98,6 +112,14 @@ namespace _2DAminationDemo.GameObject
         public void Move(MoveDirection direction)
         {
             NowDirection = direction;
+            if (thread_move != null)
+            {
+                if (thread_move.IsAlive) return;
+            }
+            if (_AminationPlaying != null)
+            {
+                if (_AminationPlaying.thread_play != null) _AminationPlaying.thread_play.Abort();
+            }
             switch (direction)
             {
                 case MoveDirection.IDLE:
@@ -105,12 +127,16 @@ namespace _2DAminationDemo.GameObject
                     break;
                 case MoveDirection.LEFT:
                     _AminationPlaying = _AminationMoveLeft;
+                    _AminationMoveUp = _AminationMoveLeft;
+                    _AminationMoveDown = _AminationMoveLeft;
                     break;
                 case MoveDirection.UP:
                     _AminationPlaying = _AminationMoveUp;
                     break;
                 case MoveDirection.RIGHT:
                     _AminationPlaying = _AminationMoveRight;
+                    _AminationMoveUp = _AminationMoveRight;
+                    _AminationMoveDown = _AminationMoveRight;
                     break;
                 case MoveDirection.DOWN:
                     _AminationPlaying = _AminationMoveDown;
@@ -221,6 +247,42 @@ namespace _2DAminationDemo.GameObject
             {
                 _AminationMoveDown = value;
             }
+        }
+
+        /// <summary>
+        /// 闲置
+        /// </summary>
+        public void BeIdle()
+        {
+            Move(MoveDirection.IDLE);
+        }
+        /// <summary>
+        /// 向左移动
+        /// </summary>
+        public void MoveLeft()
+        {
+            Move(MoveDirection.LEFT);
+        }
+        /// <summary>
+        /// 向右移动
+        /// </summary>
+        public void MoveRight()
+        {
+            Move(MoveDirection.RIGHT);
+        }
+        /// <summary>
+        /// 向上移动
+        /// </summary>
+        public void MoveUp()
+        {
+            Move(MoveDirection.UP);
+        }
+        /// <summary>
+        /// 向下移动
+        /// </summary>
+        public void MoveDown()
+        {
+            Move(MoveDirection.DOWN);
         }
     }
 }
